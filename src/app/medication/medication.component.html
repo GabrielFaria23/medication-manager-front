@@ -1,1 +1,20 @@
-<p>medication works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th *ngFor = "let column of headers" scope="col">{{column}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medication of medications | async">
+        <td class="text-center">{{medication.id}}</td>
+        <td class="text-center">{{medication.anvisaRegistrationNumber}}</td>
+        <td class="text-center">{{medication.name}}</td>
+        <td class="text-center">{{medication.expirationDate | date: 'dd/MM/yyyy'}}</td>
+        <td class="text-center">{{medication.telephoneSac}}</td>
+        <td class="text-center">{{medication.price}}</td>
+        <td class="text-center">{{medication.quantityPills}}</td>
+        <td class="text-center">{{medication.manufacturer.name}}</td>
+        <!-- <td class="text-center">{{medication.adverseReactions.}}</td> -->
+      </tr>
+    </tbody>
+  </table>

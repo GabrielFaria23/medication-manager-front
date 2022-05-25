@@ -1,14 +1,13 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <img src="../assets/logo-medication.png">
+      <a routerLink="home" class="nav-link" routerLinkActive="active">Home</a>
     </li>
     <li class="nav-item">
-        <a routerLink="rooms" class="nav-link" routerLinkActive="active">Room List</a>
+        <a routerLink="medication" class="nav-link" routerLinkActive="active">Medicamentos</a>
     </li>
     <li class="nav-item">
-        <a routerLink="add" class="nav-link" routerLinkActive="active">Add Room</a>
+        <a routerLink="adverse-reactions" class="nav-link" routerLinkActive="active">Reações Adversas</a>
     </li>
   </ul>
 </nav>
@@ -18,12 +17,12 @@
   <hr>  
   <div class="card">
     <div class="card-body">
-  <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
 
-<footer class="footer">
+<footer class="footer" style="bottom: 0;">
   <div class="container">
       <span>Gerenciador de medicamentos - Gabriel Faria</span>
   </div>
