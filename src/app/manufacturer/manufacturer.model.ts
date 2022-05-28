@@ -1,6 +1,8 @@
 export class Manufacturer{
+
+    name:string;
+
     constructor(
-        public id: number,
-        public name: string
+        public id: number
     ){}
 }

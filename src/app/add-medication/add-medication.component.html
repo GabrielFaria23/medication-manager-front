@@ -1,0 +1,90 @@
+{{this.formMedication}}
+
+<div class="formClass" [hidden]="submitted" style="width: 100%;">
+  <h3>Cadastrar Medicamento</h3>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formMedication">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="anvisaNumber">
+            <mat-form-field class="field-lg" appearance="outline">
+              <mat-label>Número de registro anvisa</mat-label>
+              <input class="form-control" name="anvisaRegistrationNumber" ngDefaultControl maxlength="16" matInput placeholder="0.0000.0000.000-0" mask="0.0000.0000.000-0" value="" formControlName="anvisaRegistrationNumber">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="name">
+            <mat-form-field class="field-lg" appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input class="form-control" name="name" ngDefaultControl maxlength="150" matInput placeholder="Nome" value="" formControlName="name">
+            </mat-form-field>
+          </div>      
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="date">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>DD/MM/YYYY</mat-label>
+              <input class="form-control" name="expirationDate" ngDefaultControl matInput [matDatepicker]="picker" formControlName="expirationDate">    
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>   
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="telephoneSac">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Telefone Sac</mat-label>
+              <input class="form-control" name="telephoneSac" ngDefaultControl maxlength="14" matInput placeholder="(00) 00000-0000" mask="(00) 00000-0000" value="" formControlName="telephoneSac">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="price">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Preço</mat-label>
+              <input currencyMask class="form-control"  name="price" ngDefaultControl matInput placeholder="0,00" value="" formControlName="price">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="quantityPills">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Quantidade de Comprimidos</mat-label>
+              <input class="form-control" name="quantityPills" ngDefaultControl matInput placeholder="0" value="" formControlName="quantityPills">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="manufacturer">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Fabricante</mat-label>
+              <mat-select  [(value)]="manufacturerSelected" [formControl]="manufacturers" matNativeControl required >
+                <mat-option disabled value> Selecione uma opção </mat-option>
+                <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">{{manufacturer.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="adverseReactions">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Reações Adversas</mat-label>              
+              <mat-select [(value)]="adverseReactionsSelected" [formControl]="adverseReactions" multiple>
+                <mat-option disabled value> Selecione uma opção </mat-option>
+                <mat-option *ngFor="let adverseReaction of adverseReactions" [value]="adverseReaction.id">{{adverseReaction.description}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>                   
+
+    <button type="submit" class="btn btn-success" routerLink="/medication" [disabled]="formMedication.invalid">Cadastrar</button>
+  </form>
+</div>

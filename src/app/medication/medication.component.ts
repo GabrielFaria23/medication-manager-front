@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Medication } from './medication.model';
+import { Router } from '@angular/router';
 import { MedicationService } from './medication.service';
 
 @Component({
@@ -10,18 +9,58 @@ import { MedicationService } from './medication.service';
 })
 export class MedicationComponent implements OnInit {
 
-  headers = ["#","Número de registro anvisa", "Nome", "Data de vencimento", "Telefone Sac", "Preço","Quantidade de comprimidos","Fabricante", "Reações Adversas"];
+  headers = ["#","Número de registro anvisa", "Nome", "Data de vencimento", "Telefone Sac", "Preço","Quantidade de comprimidos","Fabricante", "Reações Adversas", "Ações"];
 
-  medications!: Observable<Medication[]>;
+  medications: any[] = [];
+  adverseReactions: string[] = [];
 
-  constructor(private service : MedicationService) { }
+  constructor(private service : MedicationService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
   }
 
   getData(){
-    this.medications = this.service.getMedicationList();
+    this.service.getMedicationList()
+      .subscribe(
+        data => {this.medications = data.map(element =>{
+          let adverseReaction = ""
+          let primeiro = true;
+          for(const ar of element.adverseReactions){
+            if(primeiro){
+              adverseReaction += ar.description;
+              primeiro = false;
+            }          
+            else{
+              adverseReaction += `, ${ar.description}`;
+            }            
+          }
+          return {...element, adverseReaction}
+        })
+        console.log(this.medications);
+                  
+      }); 
+  }
+
+  addMedication(){
+    this.router.navigate(['add-medication'])
+  }
+
+  deleteMedication(idMedication: number){
+    this.service.deleteMedication(idMedication).subscribe(
+      (data => {
+        console.log("Medicamento ",idMedication," deletado com sucesso!");      
+      }), 
+      (err => {
+        console.log(err);
+      })
+    )
+    this.getData();
+  }
+
+  updateMedication(idMedication: number){
+    this.router.navigate(['update-medication',idMedication])
   }
 
 }

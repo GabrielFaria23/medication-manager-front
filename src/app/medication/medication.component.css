@@ -1,0 +1,9 @@
+.actions{
+    display: flex;
+    flex-direction: row;
+}
+
+.btnCadastro{
+    display: flex;
+    justify-content: flex-end;
+}

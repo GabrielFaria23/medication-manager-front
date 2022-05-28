@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { Medication } from './medication.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,11 @@ export class MedicationService {
     return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 
-  getMedicationList(): Observable<any>{
-    return this.http.get(`${this.baseUrl}`);
+  getMedicationList(): Observable<Medication[]>{
+    return this.http.get<Medication[]>(`${this.baseUrl}`);
+  }
+
+  checkAnvisaRegistrationNumber(anvisaRegistrationNumber: string): Observable<Boolean>{
+    return this.http.get<Boolean>(`${this.baseUrl}/check-anvisa-registration-number?anvisaRegistrationNumber=${anvisaRegistrationNumber}`);
   }
 }
