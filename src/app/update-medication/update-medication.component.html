@@ -1,49 +1,87 @@
 <div class="formClass" [hidden]="submitted" style="width: 100%;">
-    <h3>Cadastrar Medicamento</h3>
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Número de registro anvisa</label>
-        <input type="text" class="form-control" id="anvisaRegistrationNumber" placeholder="0.0000.0000.000-0" minlength="13" maxlength="13" required 
-          [(ngModel)]="medication.anvisaRegistrationNumber" pattern="[0-9]{1}.[0-9]{4}.[0-9]{4}.[0-9]{3}-[0-9]{1}." name="anvisaRegistrationNumber" >
+  <h3>Atualizar Medicamento</h3>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formMedication">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="anvisaNumber">
+            <mat-form-field class="field-lg" appearance="outline">
+              <mat-label>Número de registro anvisa</mat-label>
+              <input class="form-control" maxlength="16" matInput placeholder="0.0000.0000.000-0" mask="0.0000.0000.000-0" value="" formControlName="anvisaRegistrationNumber">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="name">
+            <mat-form-field class="field-lg" appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input class="form-control"  maxlength="150" matInput placeholder="Nome" value="" formControlName="name">
+            </mat-form-field>
+          </div>      
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="medication.name" name="name">
+      <div class="row">
+        <div class="col-4">
+          <div class="date">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>DD/MM/YYYY</mat-label>
+              <input class="form-control"  matInput [matDatepicker]="picker" formControlName="expirationDate">    
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>   
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="telephoneSac">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Telefone Sac</mat-label>
+              <input class="form-control" maxlength="15" matInput placeholder="(00) 00000-0000" mask="(00) 00000-0000" value="" formControlName="telephoneSac">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="price">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Preço</mat-label>
+              <input currencyMask class="form-control"  matInput placeholder="0,00" value="" formControlName="price">
+            </mat-form-field>
+          </div>
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="name">Vencimento</label>
-        <input type="date" value="" class="form-control" placeholder = "dd/mm/yyyy"  name="expirationDate" id="expirationDate" required ([ngModel])="medication.expirationDate" >
+      <div class="row">
+        <div class="col-4">
+          <div class="quantityPills">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Quantidade de Comprimidos</mat-label>
+              <input class="form-control"  matInput placeholder="0" value="" formControlName="quantityPills">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="manufacturer">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Fabricante</mat-label>
+              <mat-select  [(value)]="manufacturerSelected" (selectionChange)="getValueSelected()" [formControl]="manufacturers" matNativeControl required >
+                <mat-option disabled value> Selecione uma opção </mat-option>
+                <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">{{manufacturer.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="adverseReactions">
+            <mat-form-field class="field-md" appearance="outline">
+              <mat-label>Reações Adversas</mat-label>              
+              <mat-select [(value)]="adverseReactionsSelected" (selectionChange)="getValueSelected()" [formControl]="adverseReactions"  multiple>
+                <mat-option disabled value> Selecione uma opção </mat-option>
+                <mat-option *ngFor="let adverseReaction of adverseReactions" [value]="adverseReaction.id">{{adverseReaction.description}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
       </div>
-  
-      <div class="form-group">
-          <label for="name">Telefone Sac</label>
-          <input type="tel" maxlength="11" class="form-control" placeholder="(00) 00000-0000" id="telephoneSac" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required [(ngModel)]="medication.telephoneSac" name="telephoneSac">
-      </div>
-  
-      <div class="form-group">
-        <label for="name">Preço</label>
-        <input type="text" placeholder="0,00" class="form-control" id="price" required [(ngModel)]="medication.price" name="price">
-      </div>
-  
-      <div class="form-group">
-        <label for="name">Quantidade de Comprimidos</label>
-        <input type="text" class="form-control" value="" id="quantityPills" required [(ngModel)]="medication.quantityPills" name="quantityPills">
-      </div>
-  
-      <div class="form-group">
-        <select class="form-control" name="adverseReaction" id="adverseReaction" required>
-          <option *ngFor="let adverseReaction of adverseReactions" [value]="adverseReaction.id">{{adverseReaction.description}}</option>
-        </select>      
-      </div>
-  
-      <div class="form-group">
-        <select class="form-control" name="manufacturer" id="manufacturer" required>
-          <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">{{manufacturer.name}}</option>
-        </select>      
-      </div>
-  
-      <button type="submit" class="btn btn-success">Cadastrar</button>
-    </form>
-  </div>
+    </div>                   
+
+    <button type="submit" class="btn btn-success" [disabled]="formMedication.invalid">Cadastrar</button>
+  </form>
+</div>

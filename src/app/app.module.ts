@@ -28,6 +28,7 @@ import { AddAdverseReactionsComponent } from './add-adverse-reactions/add-advers
 import { MedicationService } from './medication/medication.service';
 import { ManufacturerService } from './Manufacturer.service';
 import { AdverseReactionsService } from './adverse-reactions/AdverseReactions.service';
+import { MedicationCadastredComponent } from './snak-bars/medication-cadastred/medication-cadastred.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -50,7 +51,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     UpdateMedicationComponent,
     UpdateAdverseReactionsComponent,
     AddAdverseReactionsComponent,
-    AnvisaRegistrationNumberAlreadyCadastredComponent
+    AnvisaRegistrationNumberAlreadyCadastredComponent,
+    MedicationCadastredComponent
   ],
   imports: [
     BrowserModule,

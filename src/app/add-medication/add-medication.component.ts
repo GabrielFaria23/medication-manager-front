@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnvisaRegistrationNumberAlreadyCadastredComponent } from '../snak-bars/anvisa-registration-number-already-cadastred/anvisa-registration-number-already-cadastred.component';
 import { Router } from '@angular/router';
+import { MedicationCadastredComponent } from '../snak-bars/medication-cadastred/medication-cadastred.component';
 
 @Component({
   selector: 'app-add-medication',
@@ -43,10 +44,10 @@ export class AddMedicationComponent implements OnInit {
 
   configForm(){{
     this.formMedication = this.formBuilder.group({
-      anvisaRegistrationNumber: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(16)]],
+      anvisaRegistrationNumber: [null, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       name: [null, Validators.required],
       expirationDate: [null, Validators.required],
-      telephoneSac: [null, [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
+      telephoneSac: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       price: [null, Validators.required],
       quantityPills: [null, Validators.required],
       adverseReactions:[null, Validators.required],
@@ -61,8 +62,8 @@ export class AddMedicationComponent implements OnInit {
       else {
         this.medicationService.createMedication(this.formMedication.value)
         .subscribe(
-          data=>{
-            console.log(data)
+          data=>{            
+            this.formMedication.reset();
             this.gotoList();
           },
           error =>
@@ -73,8 +74,7 @@ export class AddMedicationComponent implements OnInit {
   }
 
   onSubmit(){
-    this.submitted = true;   
-    this.getValueSelected(); 
+    this.submitted = true;
     this.save();
   }
 
@@ -105,6 +105,12 @@ export class AddMedicationComponent implements OnInit {
 
   openSnackBarAnvisaNumberRegistration() {
     this._snackBar.openFromComponent(AnvisaRegistrationNumberAlreadyCadastredComponent, {
+      duration: 5 * 1000,
+    });    
+  }
+
+  openSnackBarMedicationCadastred() {
+    this._snackBar.openFromComponent(MedicationCadastredComponent, {
       duration: 5 * 1000,
     });    
   }

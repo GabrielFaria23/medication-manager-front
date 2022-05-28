@@ -14,9 +14,9 @@ const routes: Routes = [
   { path: 'medication', component: MedicationComponent },
   { path: 'adverse-reactions', component: AdverseReactionsComponent },
   { path: 'add-medication', component: AddMedicationComponent },
-  { path: 'update-medication', component: UpdateMedicationComponent },
+  { path: 'update-medication/:id', component: UpdateMedicationComponent },
   { path: 'add-adverse-reactions', component: AddAdverseReactionsComponent },
-  { path: 'update-adverse-reactions', component: UpdateAdverseReactionsComponent },
+  { path: 'update-adverse-reactions/:id', component: UpdateAdverseReactionsComponent },
 ];
 
 @NgModule({
