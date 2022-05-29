@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnvisaRegistrationNumberAlreadyCadastredComponent } from '../snak-bars/anvisa-registration-number-already-cadastred/anvisa-registration-number-already-cadastred.component';
 import { Router } from '@angular/router';
 import { MedicationCadastredComponent } from '../snak-bars/medication-cadastred/medication-cadastred.component';
+import { ErrorRequestComponent } from '../snak-bars/error-request/error-request.component';
 
 @Component({
   selector: 'app-add-medication',
@@ -17,8 +18,6 @@ import { MedicationCadastredComponent } from '../snak-bars/medication-cadastred/
   styleUrls: ['./add-medication.component.css']
 })
 export class AddMedicationComponent implements OnInit {
-
-  submitted = false;
 
   medication: Medication;
   adverseReactions: AdverseReactions[] = [];
@@ -62,24 +61,24 @@ export class AddMedicationComponent implements OnInit {
       else {
         this.medicationService.createMedication(this.formMedication.value)
         .subscribe(
-          data=>{            
-            this.formMedication.reset();
-            this.gotoList();
+          (data2)=>{
+            this.medication= data2;  
+            this.openSnackBarMedicationCadastred(); 
+            this.gotoList();          
           },
-          error =>
-            console.log(error)
-        );
+          (error) =>{
+            this.openSnackBarMedicationError();
+          });
       }
     });
   }
 
   onSubmit(){
-    this.submitted = true;
     this.save();
   }
 
   gotoList(){
-    this.router.navigate(['medication']);
+    this.router.navigate(['/medication']);
   }
 
   getAdverseReactions(){
@@ -111,6 +110,12 @@ export class AddMedicationComponent implements OnInit {
 
   openSnackBarMedicationCadastred() {
     this._snackBar.openFromComponent(MedicationCadastredComponent, {
+      duration: 5 * 1000,
+    });    
+  }
+
+  openSnackBarMedicationError() {
+    this._snackBar.openFromComponent(ErrorRequestComponent, {
       duration: 5 * 1000,
     });    
   }

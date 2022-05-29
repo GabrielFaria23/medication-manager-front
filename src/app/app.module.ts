@@ -1,7 +1,7 @@
 import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { routes } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,10 @@ import { MedicationService } from './medication/medication.service';
 import { ManufacturerService } from './Manufacturer.service';
 import { AdverseReactionsService } from './adverse-reactions/AdverseReactions.service';
 import { MedicationCadastredComponent } from './snak-bars/medication-cadastred/medication-cadastred.component';
+import { ErrorRequestComponent } from './snak-bars/error-request/error-request.component';
+import {MatButtonModule} from '@angular/material/button';
+import { RouterModule, ROUTES } from '@angular/router';
+import { ItemDeletadoComponent } from './snak-bars/item-deletado/item-deletado.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -52,11 +56,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     UpdateAdverseReactionsComponent,
     AddAdverseReactionsComponent,
     AnvisaRegistrationNumberAlreadyCadastredComponent,
-    MedicationCadastredComponent
+    MedicationCadastredComponent,
+    ErrorRequestComponent,
+    ItemDeletadoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -68,7 +73,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CurrencyMaskModule,
     MatSnackBarModule,
     MatIconModule,
+    MatButtonModule,
     NgxMaskModule.forRoot(),
+    RouterModule.forRoot(routes),
   ],
   providers: [MedicationService, ManufacturerService, AdverseReactionsService, 
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}, { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },

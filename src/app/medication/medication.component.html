@@ -1,3 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div>
+        <mat-form-field class="field-lg" appearance="outline">
+          <mat-label>Filtro</mat-label>
+          <input maxlength="100" matInput placeholder="Filtre por nome ou número de registro da anvisa" value="" [(ngModel)]="filter">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="div-button">
+        <button class="button-filter" mat-raised-button color="primary" type="button" ngModel (click)="filterTable()" >Filtrar</button><br>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="div-button">
+        <button class="button-filter" mat-raised-button type="button" ngModel (click)="cleanFilter()" >Limpar filtro</button><br>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table table-hover">
   <thead>
     <tr>

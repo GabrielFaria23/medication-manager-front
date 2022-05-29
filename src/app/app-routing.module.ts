@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AddAdverseReactionsComponent } from './add-adverse-reactions/add-adverse-reactions.component';
 import { AddMedicationComponent } from './add-medication/add-medication.component';
 import { AdverseReactionsComponent } from './adverse-reactions/adverse-reactions.component';
@@ -8,7 +7,7 @@ import { MedicationComponent } from './medication/medication.component';
 import { UpdateAdverseReactionsComponent } from './update-adverse-reactions/update-adverse-reactions.component';
 import { UpdateMedicationComponent } from './update-medication/update-medication.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'medication', component: MedicationComponent },
@@ -18,9 +17,3 @@ const routes: Routes = [
   { path: 'add-adverse-reactions', component: AddAdverseReactionsComponent },
   { path: 'update-adverse-reactions/:id', component: UpdateAdverseReactionsComponent },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

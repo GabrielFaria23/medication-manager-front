@@ -13,6 +13,7 @@ export class MedicationComponent implements OnInit {
 
   medications: any[] = [];
   adverseReactions: string[] = [];
+  filter: string = "";
 
   constructor(private service : MedicationService,
               private router: Router) { }
@@ -49,18 +50,31 @@ export class MedicationComponent implements OnInit {
 
   deleteMedication(idMedication: number){
     this.service.deleteMedication(idMedication).subscribe(
-      (data => {
-        console.log("Medicamento ",idMedication," deletado com sucesso!");      
-      }), 
+      (data) => {
+        console.log("Medicamento ",idMedication," deletado com sucesso!");  
+        this.getData();    
+      }, 
       (err => {
         console.log(err);
       })
-    )
-    this.getData();
+    )    
   }
 
   updateMedication(idMedication: number){
     this.router.navigate(['update-medication',idMedication])
+  }
+
+  filterTable(){
+    this.service.getMedicationListByNameOrAnvisaNumber(this.filter).subscribe((data)=>{
+      this.medications = data;
+    },
+    (error)=>
+      console.log(error)
+    )
+  }
+
+  cleanFilter(){
+    this.getData();
   }
 
 }

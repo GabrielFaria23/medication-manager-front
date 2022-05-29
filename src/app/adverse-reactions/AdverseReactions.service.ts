@@ -31,4 +31,8 @@ export class AdverseReactionsService {
   getAdverseReactionsList(): Observable<AdverseReactions[]>{
     return this.http.get<AdverseReactions[]>(`${this.baseUrl}`);
   }
+
+  getAdverseReactionsByDescription(filter: string): Observable<AdverseReactions[]>{
+    return this.http.get<AdverseReactions[]>(`${this.baseUrl}/filter?filter=${filter}`);
+  }
 }

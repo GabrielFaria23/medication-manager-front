@@ -1,12 +1,14 @@
-<div class="formClass" [hidden]="submitted" style="width: 100%;">
-    <h3>Cadastrar Reação Adversa</h3>
-    <form (ngSubmit)="onSubmit()">
+<div class="formClass" style="width: 100%;">
+  <h3>Cadastrar Reação adversa</h3>  
+  <form [formGroup]="formAdverseReaction" *ngIf="formAdverseReaction">
+    <div class="adverseReaction">
+      <mat-form-field class="field-lg" appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input class="form-control" maxlength="200" matInput placeholder="Descrição" value="" formControlName="description">
+      </mat-form-field>
+    </div>                  
+    
+    <button type="button" (click)="onSubmit()" class="btn btn-success" [disabled]="formAdverseReaction.invalid">Cadastrar</button>
+  </form>
 
-      <div class="form-group">
-        <label for="name">Descrição da reação adversa</label>
-        <input type="text" class="form-control" id="description" required [(ngModel)]="adverseReaction.description" name="description">
-      </div>
-  
-      <button type="submit" class="btn btn-success">Cadastrar</button>
-    </form>
-  </div>
+</div>
