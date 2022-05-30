@@ -20,4 +20,8 @@ export class HomeComponent implements OnInit {
   medication(){
     this.router.navigate(['medication'])
   }
+
+  manufacturer(){
+    this.router.navigate(['manufacturer'])
+  }
 }

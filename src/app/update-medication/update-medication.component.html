@@ -1,4 +1,4 @@
-<div class="formClass" [hidden]="submitted" style="width: 100%;">
+<div class="formClass" style="width: 100%;">
   <h3>Atualizar Medicamento</h3>
   <form (ngSubmit)="onSubmit()" [formGroup]="formMedication">
     <div class="container">
@@ -80,7 +80,7 @@
           </div>
         </div>
       </div>
-    </div>                   
+    </div>
 
     <button type="submit" class="btn btn-success" [disabled]="formMedication.invalid">Cadastrar</button>
   </form>

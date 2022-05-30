@@ -72,7 +72,7 @@
           <div class="adverseReactions">
             <mat-form-field class="field-md" appearance="outline">
               <mat-label>Reações Adversas</mat-label>              
-              <mat-select [(value)]="adverseReactionsSelected" (selectionChange)="getValueSelected()" [formControl]="adverseReactions"  multiple>
+              <mat-select [(value)]="adverseReactionsSelected" (selectionChange)="getValueSelected()" [formControl]="adverseReactions" matNativeControl  multiple>
                 <mat-option disabled value> Selecione uma opção </mat-option>
                 <mat-option *ngFor="let adverseReaction of adverseReactions" [value]="adverseReaction.id">{{adverseReaction.description}}</mat-option>
               </mat-select>

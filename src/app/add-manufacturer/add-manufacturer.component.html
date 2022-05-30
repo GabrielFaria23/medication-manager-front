@@ -1,0 +1,14 @@
+<div class="formClass" style="width: 100%;">
+    <h3>Cadastrar Fabricante</h3>  
+    <form [formGroup]="formManufacturer" *ngIf="formManufacturer">
+      <div class="manufacturer">
+        <mat-form-field class="field-lg" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input class="form-control" maxlength="200" matInput placeholder="Nome" value="" formControlName="name">
+        </mat-form-field>
+      </div>                  
+      
+      <button type="button" (click)="onSubmit()" class="btn btn-success" [disabled]="formManufacturer.invalid">Cadastrar</button>
+    </form>
+  
+</div>

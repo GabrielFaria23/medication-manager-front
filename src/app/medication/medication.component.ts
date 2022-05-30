@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ItemDeletadoComponent } from '../snak-bars/item-deletado/item-deletado.component';
 import { MedicationService } from './medication.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class MedicationComponent implements OnInit {
   filter: string = "";
 
   constructor(private service : MedicationService,
-              private router: Router) { }
+              private router: Router,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getData();
@@ -51,7 +54,7 @@ export class MedicationComponent implements OnInit {
   deleteMedication(idMedication: number){
     this.service.deleteMedication(idMedication).subscribe(
       (data) => {
-        console.log("Medicamento ",idMedication," deletado com sucesso!");  
+        this.openSnackBarMedicationDeleted();
         this.getData();    
       }, 
       (err => {
@@ -75,6 +78,12 @@ export class MedicationComponent implements OnInit {
 
   cleanFilter(){
     this.getData();
+  }
+
+  openSnackBarMedicationDeleted() {
+    this._snackBar.openFromComponent(ItemDeletadoComponent, {
+      duration: 5 * 1000,
+    });    
   }
 
 }

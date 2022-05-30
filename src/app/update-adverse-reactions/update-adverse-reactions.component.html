@@ -1,1 +1,14 @@
-<p>update-adverse-reactions works!</p>
+<div class="formClass" style="width: 100%;">
+    <h3>Atualizar Reação adversa</h3>  
+    <form [formGroup]="formAdverseReaction" *ngIf="formAdverseReaction">
+      <div class="adverseReaction">
+        <mat-form-field class="field-lg" appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input class="form-control" maxlength="200" matInput placeholder="Descrição" value="" formControlName="description">
+        </mat-form-field>
+      </div>                  
+      
+      <button type="button" (click)="onSubmit()" class="btn btn-success" [disabled]="formAdverseReaction.invalid">Cadastrar</button>
+    </form>
+  
+  </div>

@@ -26,13 +26,16 @@ import { UpdateAdverseReactionsComponent } from './update-adverse-reactions/upda
 import { AddAdverseReactionsComponent } from './add-adverse-reactions/add-adverse-reactions.component';
 
 import { MedicationService } from './medication/medication.service';
-import { ManufacturerService } from './Manufacturer.service';
 import { AdverseReactionsService } from './adverse-reactions/AdverseReactions.service';
 import { MedicationCadastredComponent } from './snak-bars/medication-cadastred/medication-cadastred.component';
 import { ErrorRequestComponent } from './snak-bars/error-request/error-request.component';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterModule, ROUTES } from '@angular/router';
 import { ItemDeletadoComponent } from './snak-bars/item-deletado/item-deletado.component';
+import { ItemAtualizadoComponent } from './snak-bars/item-atualizado/item-atualizado.component';
+import { AddManufacturerComponent } from './add-manufacturer/add-manufacturer.component';
+import { UpdateManufacturerComponent } from './update-manufacturer/update-manufacturer.component';
+import { ManufacturerService } from './manufacturer/Manufacturer.service';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -58,7 +61,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AnvisaRegistrationNumberAlreadyCadastredComponent,
     MedicationCadastredComponent,
     ErrorRequestComponent,
-    ItemDeletadoComponent
+    ItemDeletadoComponent,
+    ItemAtualizadoComponent,
+    AddManufacturerComponent,
+    UpdateManufacturerComponent
   ],
   imports: [
     BrowserModule,

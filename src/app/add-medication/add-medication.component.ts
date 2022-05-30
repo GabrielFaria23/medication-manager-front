@@ -3,7 +3,7 @@ import { Manufacturer } from '../manufacturer/manufacturer.model';
 import { Medication } from '../medication/medication.model';
 import { MedicationService } from '../medication/medication.service';
 import { AdverseReactionsService } from '../adverse-reactions/AdverseReactions.service';
-import { ManufacturerService } from '../Manufacturer.service';
+import { ManufacturerService } from '../manufacturer/Manufacturer.service';
 import { AdverseReactions } from '../adverse-reactions/adverse-reactions.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -64,7 +64,7 @@ export class AddMedicationComponent implements OnInit {
           (data2)=>{
             this.medication= data2;  
             this.openSnackBarMedicationCadastred(); 
-            this.gotoList();          
+            this.gotoList();        
           },
           (error) =>{
             this.openSnackBarMedicationError();
@@ -78,7 +78,7 @@ export class AddMedicationComponent implements OnInit {
   }
 
   gotoList(){
-    this.router.navigate(['/medication']);
+    this.router.navigate(['medication']);
   }
 
   getAdverseReactions(){

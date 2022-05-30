@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Manufacturer } from './manufacturer/manufacturer.model';
+import { Manufacturer } from './manufacturer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class ManufacturerService {
 
   getManufacturerList(): Observable<Manufacturer[]>{
     return this.http.get<Manufacturer[]>(`${this.baseUrl}`);
+  }
+
+  getManufacturerByName(filter: string): Observable<Manufacturer[]>{
+    return this.http.get<Manufacturer[]>(`${this.baseUrl}/filter?filter=${filter}`);
   }
 }

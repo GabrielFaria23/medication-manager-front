@@ -1,16 +1,16 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdverseReactions } from '../adverse-reactions/adverse-reactions.model';
 import { AdverseReactionsService } from '../adverse-reactions/AdverseReactions.service';
-import { ManufacturerService } from '../Manufacturer.service';
+import { ManufacturerService } from '../manufacturer/Manufacturer.service';
 import { Manufacturer } from '../manufacturer/manufacturer.model';
 import { Medication } from '../medication/medication.model';
 import { MedicationService } from '../medication/medication.service';
 import { AnvisaRegistrationNumberAlreadyCadastredComponent } from '../snak-bars/anvisa-registration-number-already-cadastred/anvisa-registration-number-already-cadastred.component';
 import { MedicationCadastredComponent } from '../snak-bars/medication-cadastred/medication-cadastred.component';
+import { ItemAtualizadoComponent } from '../snak-bars/item-atualizado/item-atualizado.component';
 
 @Component({
   selector: 'app-update-medication',
@@ -18,8 +18,6 @@ import { MedicationCadastredComponent } from '../snak-bars/medication-cadastred/
   styleUrls: ['./update-medication.component.css']
 })
 export class UpdateMedicationComponent implements OnInit {
-
-  submitted = false;
 
   idMedication: number;
 
@@ -54,16 +52,18 @@ export class UpdateMedicationComponent implements OnInit {
   getMedicationById(id: number):void{
      this.medicationService.getMedication(id).subscribe(data =>{
        this.medication = data;
+       this.medication.telephoneSac.replace(/([^\d])+/gim, ''), 
+       this.medication.anvisaRegistrationNumber.replace(/([^\d])+/gim, '')
        this.configForm();
      });
   }
 
   configForm(){{
     this.formMedication = this.formBuilder.group({
-      anvisaRegistrationNumber: [this.medication.anvisaRegistrationNumber, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      anvisaRegistrationNumber: [this.medication.anvisaRegistrationNumber, [Validators.required]],
       name: [this.medication.name, Validators.required],
       expirationDate: [this.medication.expirationDate, Validators.required],
-      telephoneSac: [this.medication.telephoneSac, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      telephoneSac: [this.medication.telephoneSac, [Validators.required]],
       price: [this.medication.price, Validators.required],
       quantityPills: [this.medication.quantityPills, Validators.required],
       adverseReactions:[this.medication.adverseReactions, Validators.required],
@@ -71,31 +71,28 @@ export class UpdateMedicationComponent implements OnInit {
     });
   }}
 
-  update(){    
-    this.medicationService.checkAnvisaRegistrationNumber(this.formMedication.controls['anvisaRegistrationNumber'].value).subscribe(data =>{
-      if(!data)
-        this.openSnackBarAnvisaNumberRegistration()
-      else {
-        this.medicationService.updateMedication(this.medication.id, this.formMedication.value)
-        .subscribe(
-          data=>{            
-            this.formMedication.reset();
-            this.gotoList();
-          },
-          error =>
-            console.log(error)
-        );
-      }
-    });
+  update(){ 
+    this.formMedication.patchValue({
+      telephoneSac: this.medication.telephoneSac.replace(/([^\d])+/gim, ''), 
+      anvisaRegistrationNumber: this.medication.anvisaRegistrationNumber.replace(/([^\d])+/gim, '')
+    });    
+    this.medicationService.updateMedication(this.medication.id, this.formMedication.value)
+    .subscribe(
+      data=>{            
+        this.openSnackBarMedicationCadastred();
+        this.router.navigate(['medication']);   
+      },
+      error =>
+        console.log(error)
+    );
   }
 
   onSubmit(){
-    this.submitted = true;
     this.update();
   }
 
   gotoList(){
-    this.router.navigate(['/medication']);
+    this.router.navigate(['medication']);        
   }
 
   getAdverseReactions(){
@@ -126,7 +123,7 @@ export class UpdateMedicationComponent implements OnInit {
   }
 
   openSnackBarMedicationCadastred() {
-    this._snackBar.openFromComponent(MedicationCadastredComponent, {
+    this._snackBar.openFromComponent(ItemAtualizadoComponent, {
       duration: 5 * 1000,
     });    
   }
